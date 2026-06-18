@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Diagnóstico de Caracterización · Bootcamp Puerto Carreño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--lime:#9ec400;--lime2:#b6d92e;--orange:#f26a1b;--orange2:#d8541a;--forest:#16432e;--forest2:#1e5a3c;
+    --cream:#fbf7ea;--card:#fff;--border:#ece3cf;--ink:#23311c;--muted:#7a7256;--ok:#3a9d4f;
+    --display:'Baloo 2',system-ui,sans-serif;--body:'Nunito',system-ui,sans-serif}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);background:var(--cream);color:var(--ink);line-height:1.55}
+  h1,h2,h3{font-family:var(--display)} button{font-family:inherit;cursor:pointer}
+  .weave{height:10px;background:repeating-linear-gradient(135deg,var(--orange) 0 13px,var(--forest) 13px 26px,var(--lime) 26px 39px,var(--cream) 39px 46px)}
+  .top{background:linear-gradient(120deg,var(--forest),var(--forest2));color:#fff;padding:18px 20px}
+  .top .wrap{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:13px}
+  .emblem{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 30%,var(--lime2),var(--lime));flex-shrink:0}
+  .emblem svg{width:24px;height:24px;color:#fff}
+  .top b{font-family:var(--display);font-size:1.1rem;display:block;line-height:1.05}
+  .top span{font-size:.72rem;opacity:.9;font-weight:700;letter-spacing:.4px}
+  .momento{display:inline-block;margin-top:6px;background:var(--orange);color:#fff;font-family:var(--display);
+    font-weight:700;font-size:.72rem;padding:4px 12px;border-radius:50px;letter-spacing:.5px}
+  .wrap{max-width:760px;margin:0 auto;padding:22px 18px 80px}
+  .lead{color:var(--muted);font-weight:600;margin:6px 4px 18px;font-size:.96rem}
+  .blk{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 8px 26px rgba(40,60,20,.08);padding:22px;margin-bottom:18px}
+  .blk-h{font-family:var(--display);color:#fff;background:linear-gradient(120deg,var(--orange),var(--orange2));
+    border-radius:12px;padding:11px 16px;font-size:1.02rem;font-weight:800;margin:-4px -4px 16px;display:flex;align-items:center;gap:9px}
+  .dim{font-family:var(--display);color:var(--forest);font-weight:800;font-size:.92rem;margin:16px 0 8px;
+    background:#f1f6e3;border-left:4px solid var(--lime);padding:7px 12px;border-radius:8px}
+  .q{margin-bottom:18px}
+  .q .qt{font-weight:700;color:var(--ink);margin-bottom:9px;font-size:.97rem}
+  .q .qt .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--lime);color:var(--forest);font-family:var(--display);font-weight:800;font-size:.72rem;margin-right:7px;vertical-align:middle}
+  .inp,select{width:100%;background:#fbfaf3;border:1.8px solid var(--border);border-radius:11px;padding:12px 14px;font-size:1rem;font-family:var(--body);font-weight:600;color:var(--ink);outline:none}
+  .inp:focus,select:focus{border-color:var(--orange)}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{border:1.8px solid var(--border);background:#fff;border-radius:50px;padding:9px 15px;font-weight:700;font-size:.9rem;color:var(--ink)}
+  .opt.sel{background:var(--forest);color:#fff;border-color:var(--forest)}
+  .scale{display:flex;gap:8px;align-items:stretch}
+  .scale button{flex:1;border:1.8px solid var(--border);background:#fff;border-radius:12px;padding:12px 0;font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--muted)}
+  .scale button.sel{background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;border-color:var(--orange2);transform:scale(1.03)}
+  .scale-cap{display:flex;justify-content:space-between;color:var(--muted);font-size:.74rem;font-weight:700;margin-top:5px}
+  .submit{width:100%;border:none;border-radius:14px;background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;font-family:var(--display);font-weight:800;font-size:1.1rem;padding:16px;box-shadow:0 10px 22px rgba(242,106,27,.35)}
+  .submit:active{transform:scale(.99)} .submit:disabled{opacity:.6}
+  .err{background:#fdeaea;color:#b5341f;border-radius:10px;padding:11px 13px;margin-top:12px;font-weight:700;display:none}
+  .err.show{display:block}
+  #done{display:none;text-align:center;padding:50px 20px}
+  #done .big{font-size:3rem} #done h2{color:var(--forest);margin:10px 0;font-size:1.5rem}
+  #done p{color:var(--muted);font-weight:600}
+  .miss{border-color:#e0654f!important}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><symbol id="leaf" viewBox="0 0 64 64">
+ <path d="M32 60 V30" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
+ <path d="M32 36 C19 36 11 27 11 14 C25 14 32 23 32 36 Z" fill="currentColor"/>
+ <path d="M32 31 C45 31 53 22 53 9 C39 9 32 18 32 31 Z" fill="currentColor" opacity=".82"/></symbol></svg>
+<div class="top"><div class="wrap">
+  <div class="emblem"><svg><use href="#leaf"/></svg></div>
+  <div><b>Diagnóstico de Caracterización</b><span>UNIVERSIDAD EAN · PROYECTO CLUA · TERRITORIO VIVO</span>
+  <div class="momento" id="momento-badge">DIAGNÓSTICO DE INICIO</div></div>
+</div></div>
+<div class="weave"></div>
+<div class="wrap" id="form">
+  <p class="lead">Documento de entrada. Tus respuestas son anónimas y nos ayudan a entender el punto de partida del grupo. Marca lo que mejor te represente.</p>
+  <div id="blocks"></div>
+  <button class="submit" id="btn-send">Enviar diagnóstico →</button>
+  <div class="err" id="err"></div>
+</div>
+<div id="done">
+  <div class="big">🌱</div><h2>¡Gracias por responder!</h2>
+  <p>Tu diagnóstico quedó registrado. Nos vemos en el bootcamp.</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="diag.js?v=1"></script>
+</body></html>
